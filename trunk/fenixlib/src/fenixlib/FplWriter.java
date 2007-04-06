@@ -29,7 +29,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * An implementation of the <code>FileWriter</code> interface to write Fpl Fenix
+ * files.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see FileWriter
  */
 public class FplWriter implements FileWriter<Palette>, FenixlibConstants {
     
@@ -39,16 +42,22 @@ public class FplWriter implements FileWriter<Palette>, FenixlibConstants {
     private static final short VERSION_MAJOR = 0x0100;
     private static final short VERSION_MINOR = 0x0000;      
     
-    /** 
-     *  @param f
+    /**
+     * Constructs a new <code>FplWriter</code> associated to the specified file.
+     * @param f a <code>File</code> object which specifies the file to be used by 
+     * different methods of the class
      */
     public FplWriter(File f) {
         file = f;
     }
     
-    /** 
-     *  @param palette
-     */    
+    /**
+     * Writes an Fpl file from the information in an <code>Palette</code>
+     * object.
+     * @param palette the <code>Palette</code> whose information is being used to write
+     * the file
+     * @throws java.io.IOException if any error occurrs during the writing process
+     */ 
     public void write(Palette palette) throws IOException {
         GZFileWriter gzfile = new GZFileWriter();
         

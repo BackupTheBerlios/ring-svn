@@ -24,11 +24,22 @@
 
 package fenixlib;
 
-/** A convenient enumeration for depth modes
- *  @author Darío
+/**
+ * A convenient enumeration for depth modes. Currently only DEPTH_8BPP and
+ * DEPTH_16BPP modes are supported since Fenix only work with 8bpp and 16bpp modes
+ * (it is suppose to accept 1BPP images aswell but it doesn't in fact).
+ * @author Darío
  */
 public enum DepthMode {
-    DEPTH_1BPP (1), DEPTH_8BPP (8), DEPTH_16BPP(16);
+    // DEPTH_1BPP (1), 
+    /**
+     * Specifies a depth of 8 bits per pixel (indexed).
+     */
+    DEPTH_8BPP (8), 
+    /**
+     * Specifies a depth of 16 bits per pixel (565 format).
+     */
+    DEPTH_16BPP(16);
     
     private final int depth;
     
@@ -36,6 +47,10 @@ public enum DepthMode {
         depth = d;
     }
     
+    /**
+     * Returns the number of bits per pixel used for this DepthMode.
+     * @return the number of bits per pixel used for this DepthMode
+     */
     public int toInt() {
         return depth;
     }

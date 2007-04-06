@@ -29,7 +29,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * An implementation of the <code>FileReader</code> interface to read Fpl Fenix
+ * files.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see FileReader
  */
 public class FplReader implements FileReader<Palette>, FenixlibConstants {
     private final File file;
@@ -38,15 +41,22 @@ public class FplReader implements FileReader<Palette>, FenixlibConstants {
     private static final short VERSION_MAJOR = 0x0100;
     private static final short VERSION_MINOR = 0x0000;    
     
-    /** 
-     *  @param f
-     */
+    /**
+     * Constructs a new <code>FplReader</code> associated to the specified file.
+     * @param f a <code>File</code> object which specifies the file to be used by read methods
+     */ 
     public FplReader(File f) {
         file = f;
     }
 
-    /** 
-     *  @return 
+    /**
+     * Reads the file associated to this <code>FplReader</code> object as if it was
+     * an Fpl fenix file and returns a <code>Palette</code> object created
+     * from its information.
+     * @return a Palette created from the information of the file
+     * @see Palette
+     * @throws java.io.IOException if the file is not a valid Fpl file or it 
+     * couldn't be read for any reason
      */
     public Palette read() throws IOException {
         GZFileReader buff = new GZFileReader(file);

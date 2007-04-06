@@ -29,21 +29,31 @@ import fenixlib.util.GZFileReader;
 import java.io.File;
 import java.io.IOException;
 
-/** A class for reading Fenix Pal files
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+/**
+ * An implementation of the <code>FileReader</code> interface to read Pal Fenix
+ * files.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see FileReader
  */
 public class PalReader implements FileReader<Palette>, FenixlibConstants {    
     private final File file;
 
-    /** 
-     *  @param
-     */    
+    /**
+     * Constructs a new <code>PalReader</code> associated to the specified file.
+     * @param f a <code>File</code> object which specifies the file to be used by read methods
+     */   
     public PalReader(File f) {
         file = f;
     }
     
-    /** 
-     *  @return
+    /**
+     * Reads the file associated to this <code>PalReader</code> object as if it was
+     * a Pal fenix file and returns a <code>Palette</code> object created
+     * from its information.
+     * @return a Palette created from the information of the file
+     * @see Palette
+     * @throws java.io.IOException if the file is not a valid Pal file or it 
+     * couldn't be read for any reason
      */
     public Palette read() throws IOException {
         GZFileReader buff = new GZFileReader(file);

@@ -1,5 +1,4 @@
-package fenixlib;
-/* Ring Ide - The all in one IDE for Fenix.
+/* fenixlib - Library to support Fenix Files in Java
  * Copyright (C) 2007  Darío Cutillas Carrillo
  *
  * This program is free software; you can redistribute it and/or
@@ -23,13 +22,36 @@ package fenixlib;
  * Created on 3 de abril de 2007
  */
 
+package fenixlib;
+
 /**
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * A class to be used as an read-only structure with information about a keyframe.
+ * Some methods of the <code>AnimatedGraphic</code> class return objects of this
+ * class.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see AnimatedGraphic
  */
 public final class KeyFrameInfo {
+    /**
+     * An integer value which specifies additional information of the keyframe, used
+     * when representing the frame.
+     */
     public final int flags;
+    /**
+     * An integer value indicating the position of the frame used by this KeyFrame in
+     * the array of frames of an <code>AnimatedGraphic</code> object.
+     * @see AnimatedGraphic
+     */
     public final int frameIndex;
+    /**
+     * An integer value indicating the time to wait (in milliseconds) before going to
+     * the next keyframe of the sequence.
+     */
     public final int pause;
+    /**
+     * An integer value indicating the number of millidegrees that the frame should be 
+     * rotated (counter-clockwise).
+     */
     public final int angle;
     
     KeyFrameInfo(int frameIndex, int flags, int angle, int pause) {

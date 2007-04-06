@@ -24,24 +24,28 @@
 
 package fenixlib;
 
-/** This class defines a 256 color palette and provides methods for accesing these
- *  colors.
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+/**
+ * A class that defines a 256 color palette and provides methods for accesing these
+ * colors.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  */
 public class Palette {
     Color[] colors = new Color[256];
     
-    /** Creates a <code>Palette</code> and initialize all colors to black (0,0,0) .*/
+    /**
+     * Creates a <code>Palette</code> and initialize all colors to black (0,0,0).
+     */
     public Palette() {
         for(int i=0; i<256; i++)
             colors[i] = new Color(0, 0, 0);
     }
     
-    /** Creates a <code>Palette</code> so its colors are set from the <code>colors</code> 
-     *  color array. The color array is copied  so changes in the palette will 
-     *  not affect the original array. If the color array has less than 256 colors, 
-     *  the palette is completed with black entries.
-     *	@param colors the color array.
+    /**
+     * Creates a <code>Palette</code> so its colors are set from the <code>colors</code> 
+     * color array. The color array is copied  so changes in the palette will 
+     * not affect the original array. If the color array has less than 256 colors, 
+     * the palette is completed with black entries.
+     * @param colors the color array
      */
     public Palette(Color[] colors){
         this();
@@ -55,19 +59,27 @@ public class Palette {
         colors = palette.getColors();
     }
     
-    /** Returns a reference <code>Color</code> object which is the color at the 
-     *  position <code>index</code> in the palette. Changes made
-     *	in the color will result in changes in the palette.
-     *	@param index the index of the color in the palette.
-     *	@return a reference to a <code>Color</code> object which represent the 
-     *  color at the given position.
+    /**
+     * Returns a reference <code>Color</code> object which is the color at the 
+     * position <code>index</code> in the palette. Changes made
+     * in the color will result in changes in the palette.
+     * @param index the index of the color in the palette
+     * @return a reference to a <code>Color</code> object which represent the 
+     * color at the given position
      */
     public Color getColor(int index) {
         return colors[index];
     }
     
+    /**
+     * Sets the color to be used for the <code>index</code> element of the palette.
+     * The <code>Color</code> object is copied so changes in the original <code>Color</code>
+     * object will not affect the color in the palette.
+     * @param index the index of the color to be set
+     * @param c a <code>Color</code>, representing the color to be set
+     */
     public void setColor(int index, Color c) {
-        colors[index] = c;
+        colors[index] = c.getCopy();
     }
     
     /**	Returns the entire palette colors as an array of <code>Color</code> objects. 

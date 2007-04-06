@@ -24,19 +24,30 @@
 
 package fenixlib;
 
-/** A class that defines a control point, understood as a pair of X,Y coordinates
- *  and an integer value which indicates the index of the control point.
- *  @see Graphic
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+/**
+ * A class that defines a control point, understood as a pair of X,Y coordinates
+ * and an integer value which indicates the index of the control point.
+ * 
+ * Control points are used in <code>AbstractGraphic</code> objects to specify
+ * imaginary coordinates. This information can be writen in a Map or Fbm file and
+ * recovered from Fenix for different purposes.
+ * 
+ * The index of the control point is the position of it in the ControlPoint array
+ * which is stored in an AbstractGraphic. The reason for having this information
+ * in <code>ControlPoint</code> is to allow the programmer extract a <code>ControlPoint</code>
+ * and then inserting it in the same position.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see AbstractGraphic
  */
-public class ControlPoint implements Comparable {
+public class ControlPoint { //implements Comparable {
     private int x;
     private int y;
     
     private final int index;
     
-    /** Creates a new <code>ControlPoint</code> setting its x, y coordinates to 0, 0
-     *  @param index The index of the control point
+    /**
+     * Creates a new <code>ControlPoint</code> setting its x, y coordinates to 0, 0.
+     * @param index The index of the control point
      */
     public ControlPoint(int index) {
         this.index = index;
@@ -44,10 +55,11 @@ public class ControlPoint implements Comparable {
         this.y = 0;
     }
     
-    /** Creates a new <code>ControlPoint</code> setting its x, y coordinates
-     *  @param index The index of the control point
-     *  @param x The x coordinate
-     *  @param y The y coordinate
+    /**
+     * Creates a new <code>ControlPoint</code> setting its x, y coordinates.
+     * @param index The index of the control point
+     * @param x The x coordinate
+     * @param y The y coordinate
      */
     public ControlPoint(int index, int x, int y) {
         this.index = index;
@@ -55,33 +67,42 @@ public class ControlPoint implements Comparable {
         this.y = y;
     }
     
-    /** Gets the index of the control point
-     *  @return The index of the control point
+    /**
+     * Gets the index of the control point.
+     * @return The index of the control point
      */
     public int getIndex(){ return index; }
     
-    /** Gets the X coordinate of the control point
-     *  @return The X coordinate of the control point
+    /**
+     * Gets the X coordinate of the control point.
+     * @return The X coordinate of the control point
      */
     public int getX(){ return x; }
     
-    /** Gets the Y coordinate of the control point
-     *  @return The Y coordinate of the control point
+    /**
+     * Gets the Y coordinate of the control point.
+     * @return The Y coordinate of the control point
      */
     public int getY(){ return y; }
     
-    /** Sets the X coordinate of the control point
-     *  @param x The new value for the X coordinate of the control point
+    /**
+     * Sets the X coordinate of the control point.
+     * @param x The new value for the X coordinate of the control point
      */
     public void setX(int x) { this.x = x; }
     
-    /** Sets the Y coordinate of the control point
-     *  @param y The new value for the Y coordinate of the control point
+    /**
+     * Sets the Y coordinate of the control point.
+     * @param y The new value for the Y coordinate of the control point
      */
     public void setY(int y) { this.y = y; }
     
+    /**
+     * Returns a string representation of this control point.
+     * @return a string representation of this control point.
+     */
     public String toString() { return index + ": (" + x + ", " + y + ")"; }
-    
+ /*   
     public int compareTo(Object o) {
         ControlPoint c;
         if (o instanceof ControlPoint)
@@ -92,5 +113,5 @@ public class ControlPoint implements Comparable {
         
         return index - c.index;
     }
-   
+   */
 }

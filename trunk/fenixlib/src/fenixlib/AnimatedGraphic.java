@@ -53,7 +53,10 @@ import java.util.ArrayList;
  * (MAP, FBM, PNG, etc.). You must use <code><em>FILETYPE</em>Reader</code>
  * and <code><em>FILETYPE</em>Writer</code> classes to do so.
  * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
- * @see MapReader, FbmReader, MapWriter, FbmWriter
+ * @see MapReader
+ * @see FbmReader
+ * @see MapWriter
+ * @see FbmWriter
  */
 public class AnimatedGraphic extends AbstractGraphic{
     
@@ -67,6 +70,12 @@ public class AnimatedGraphic extends AbstractGraphic{
     // data.
     private ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
     
+    /**
+     * Creates a new 16bpp <code>AnimatedGraphic</code> with the specified width and
+     * height
+     * @param width the desired width
+     * @param height the desired height
+     */
     public AnimatedGraphic (int width, int height) {
         
         this.width = width;
@@ -87,6 +96,14 @@ public class AnimatedGraphic extends AbstractGraphic{
         
     }*/
     
+    /**
+     * Creates a new 8bpp (indexed) <code>AnimatedGraphic</code> with the specified 
+     * width and height and an underlaying palette.
+     * @param width the desired width
+     * @param height the desired height
+     * @param palette a <code>Palette</code> object to be used as the indexed palette
+     * for the graphic
+     */
     public AnimatedGraphic (int width, int height, Palette palette) {
         
         this.width = width;
@@ -96,7 +113,31 @@ public class AnimatedGraphic extends AbstractGraphic{
         
     }
     
-
+    /**
+     * Adds a sequence to the graphic.
+     * @param name a descriptive name for the sequence
+     */
+    public void addSequence(String name) {
+        Sequence seq = new Sequence(name);
+        sequences.add(seq);
+    }    
+    
+    /**
+     * Adds a sequence to the graphic.
+     */
+    public void addSequence() {
+        Sequence seq = new Sequence();
+        sequences.add(seq);
+    }      
+    
+    /**
+     * Returns a <code>SequenceInfo</code> object which contains information
+     * about the specified sequence. See <code>SequenceInfo</code> documentation
+     * for more information.
+     * @param seqIndex the index of the sequence to get information from
+     * @return a <code>SequenceInfo</code> object with information about the specified sequence
+     * @see SequenceInfo
+     */
     public SequenceInfo getSequenceInfo(int seqIndex) {
         Sequence sequence = sequences.get(seqIndex); // Get the sequence
         int nextseqIndex = sequences.indexOf(sequence.getNextSequence());
@@ -108,6 +149,14 @@ public class AnimatedGraphic extends AbstractGraphic{
                 );
     }
     
+    /**
+     * Returns an array of <code>SequenceInfo</code> objects which contains information
+     * about the sequences of the graphic. See <code>SequenceInfo</code> documentation
+     * for more information.
+     * @return an array of <code>SequenceInfo</code> objects with information about 
+     * all the sequences in the graphic.
+     * @see SequenceInfo
+     */
     public SequenceInfo[] getSequencesInfo() {
         // An ArrayList to store all Info from sequences
         ArrayList<SequenceInfo> seqsInfo = new ArrayList<SequenceInfo>();
@@ -125,6 +174,56 @@ public class AnimatedGraphic extends AbstractGraphic{
         return seqsInfo.toArray(new SequenceInfo[0]);
     }
     
+    /**
+     * Sets some sequence parameters.
+     * @param seqIndex the index of the sequence whose parameters are being changed
+     * @param name the new desired descriptive name for the sequence
+     */
+    public void setSequenceParams(int seqIndex, String name) {
+        Sequence seq = sequences.get(seqIndex);
+        seq.setName(name);
+    }
+    
+    /**
+     * Sets some sequence parameters.
+     * @param seqIndex the index of the sequence whose parameters are being changed
+     * @param nextSequence the index of the following sequence in the animation. Can be -1 if the animation
+     * must stop after finishing the sequence.
+     */
+    public void setSequenceParams(int seqIndex, int nextSequence) {
+        Sequence seq = sequences.get(seqIndex);
+        Sequence next;
+        
+        if (nextSequence != -1)
+            next = sequences.get(nextSequence);
+        else
+            next = null;
+        
+        seq.setNextSequence(next);        
+    }
+    
+    /**
+     * Sets some sequence parameters.
+     * @param seqIndex the index of the sequence whose parameters are being changed
+     * @param name the new desired descriptive name for the sequence
+     * @param nextSequence the index of the following sequence in the animation. Can be -1 if the animation
+     * must stop after finishing the sequence.
+     */
+    public void setSequenceParams(int seqIndex, String name, int nextSequence) {
+        setSequenceParams(seqIndex, name);
+        setSequenceParams(seqIndex, nextSequence);
+    }
+    
+    public void addKeyFrame(int seqIndex, int frameIndex, int flags,  int angle, int pause) {
+        Sequence sequence = sequences.get(seqIndex); // get the sequence
+        
+        // add the keyframe to the sequence
+        KeyFrame kf = new KeyFrame(flags, angle, pause); 
+        kf.frame = frames.get(frameIndex);
+        
+        sequence.keyFrames.add(kf);
+    }    
+    
     public KeyFrameInfo getKeyFrameInfo(int seqIndex, int kfIndex) {
         Sequence sequence = sequences.get(seqIndex); // Get the sequence
         KeyFrame kf = sequence.keyFrames.get(kfIndex); // Get the keyframe
@@ -138,29 +237,7 @@ public class AnimatedGraphic extends AbstractGraphic{
                 kf.getAngle(),
                 kf.getPause()
                 );
-    }
-    
-    public void setSequenceParams(int seqIndex, String name, int nextSequence) {
-        setSequenceParams(seqIndex, name);
-        setSequenceParams(seqIndex, nextSequence);
-    }
-    
-    public void setSequenceParams(int seqIndex, String name) {
-        Sequence seq = sequences.get(seqIndex);
-        seq.setName(name);
-    }
-    
-    public void setSequenceParams(int seqIndex, int nextSequence) {
-        Sequence seq = sequences.get(seqIndex);
-        Sequence next;
-        
-        if (nextSequence != -1)
-            next = sequences.get(nextSequence);
-        else
-            next = null;
-        
-        seq.setNextSequence(next);        
-    }
+    }    
     
     public KeyFrameInfo[] getKeyFramesInfo(int seqIndex) {
         Sequence sequence = sequences.get(seqIndex); // Get the sequence
@@ -180,21 +257,34 @@ public class AnimatedGraphic extends AbstractGraphic{
         return keyFramesInfo.toArray(new KeyFrameInfo[0]);
     }
     
-    public void addSequence(String name) {
-        Sequence seq = new Sequence(name);
-        sequences.add(seq);
-    }
+
     
-    public void addKeyFrame(int seqIndex, int frameIndex, int flags,  int angle, int pause) {
-        Sequence sequence = sequences.get(seqIndex); // get the sequence
-        
-        // add the keyframe to the sequence
-        KeyFrame kf = new KeyFrame(flags, angle, pause); 
-        kf.frame = frames.get(frameIndex);
-        
-        sequence.keyFrames.add(kf);
-    }
-    
+    /**
+     * Adds a new frame to the graphic. 
+     * 
+     * Frames represent different versions of the  graphic (with the same size). 
+     * Internally, frames are stored as buffered images and you can get an array with 
+     * all frames using <code>getFrames()</code> method.
+     * 
+     * Frames are independent of keyframes and sequences so a graphic can 
+     * contain multiple frames but use only one.
+     * 
+     * Actually, a frame is nothing different but a <code>BufferedImage</code> object,
+     * which can be of type TYPE_BYTE_INDEXED or TYPE_USHORT_565_RGB. This method
+     * will only accept buffered images whose type is one of them so you must perform
+     * the conversion yourself, otherwise an IllegalArgumentException will be thrown.
+     * Also note that you can only add TYPE_BYTE_INDEXED buffered images for 8bpp
+     * graphics while TYPE_USHORT_565_RGB buffered images are reserved for 16bpp. An
+     * IllefalArgumentException will be thrown if you don't follow this rule.
+     * 
+     * When adding a TYPE_BYTE_INDEXED buffered image you must note that colors of its
+     * "indexed palette" (more exactly, colors of its <code>IndexedColorModel</code>)
+     * may differ from the colors of the graphic palette and no color space conversion
+     * is performed automatically.
+     * @param img the <code>BufferedImage</code> to be used as a frame. Only TYPE_BYTE_INDEXED 
+     * and TYPE_USHORT_565_RGB buffered image types are allowed, the first for using
+     * with 8bpp graphics and the last for 16bpp graphics.
+     */
     public void addFrame(BufferedImage img) {
         // buffImage must have the same dimensions than the AnimatedGraphic
         // and its backing buffer can only be TYPE_BYTE or TYPE_USHORT.
@@ -244,10 +334,25 @@ public class AnimatedGraphic extends AbstractGraphic{
         frames.add(img);
     }
     
+    /**
+     * Gets an array of <code>BufferedImage</code> objects representing all the frames
+     * of the image. See <code>addFrame</code> for a more detailed description about
+     * frames.
+     * @return an array of <code>BufferedImages</code> objects containing all the frames of
+     * the image
+     * @see addFrame
+     */
     public BufferedImage[] getFrames() { 
         return frames.toArray(new BufferedImage[0]);
     }
     
+    /**
+     * Gets the frame whose index is <code>frameIndex</code>. See <code>addFrame</code> 
+     * for a more detailed description about frames.
+     * @param frameIndex the index of the desired frame
+     * @return a <code>BufferedImage</code> object that represents the frame
+     * @see addFrame
+     */
     public BufferedImage getFrame(int frameIndex) {
         return frames.get(frameIndex);
     }      

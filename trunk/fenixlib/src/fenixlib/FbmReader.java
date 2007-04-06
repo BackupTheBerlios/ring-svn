@@ -36,7 +36,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * An implementation of the <code>FileReader</code> interface to read Fbm Fenix
+ * files.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see FileReader
  */
 public class FbmReader implements FileReader<AnimatedGraphic>, FenixlibConstants {
     
@@ -46,13 +49,24 @@ public class FbmReader implements FileReader<AnimatedGraphic>, FenixlibConstants
     private static final short VERSION_MAJOR = 0x0100;
     private static final short VERSION_MINOR = 0x0000;    
     
-    /** 
-     *  @param f
+    
+    /**
+     * Constructs a new <code>FbmReader</code> associated to the specified file.
+     * @param f a <code>File</code> object which specifies the file to be used by read methods
      */
     public FbmReader(File f) {
         file = f;
     }
     
+    
+    /**
+     * Reads the file associated to this <code>FbmReader</code> object as if it was
+     * an Fbm fenix file and returns an <code>AnimatedGraphic</code> object created
+     * from its information.
+     * @return an AnimatedGraphic created from the information of the file
+     * @throws java.io.IOException if the file is not a valid Fbm file or it couldn't be read for any reason
+     * @see AnimatedGraphic
+     */
     public AnimatedGraphic read() throws IOException {
         GZFileReader gzfile = new GZFileReader(file);
         
@@ -86,9 +100,9 @@ public class FbmReader implements FileReader<AnimatedGraphic>, FenixlibConstants
                         throw new IOException("Unsuported depth");
                 }
                 
-            } else 													/* Incompatible version */
+            } else      /* Incompatible version */
                 throw new IOException("Incompatible file version");
-        } else 													/* Invalid FPL descriptor */
+        } else          /* Invalid FPL descriptor */
             throw new IOException("The file is not a valid fbm file");
         
         // Descriptor
@@ -213,8 +227,6 @@ public class FbmReader implements FileReader<AnimatedGraphic>, FenixlibConstants
         }
         
         // Create the AnimatedGraphic Sequences and KeyFrames
-        //Sequence sequence;
-        //KeyFrame keyFrame;
         InternalSequence iseq;
         // for (InternalSequence iseq : internalSequences) {
         for (int i = 0; i < internalSequences.length; i++) {

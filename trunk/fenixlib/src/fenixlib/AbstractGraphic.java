@@ -1,4 +1,4 @@
-/* Ring Ide - The all in one IDE for Fenix.
+/* fenixlib - Library to support Fenix Files in Java
  * Copyright (C) 2007  Darío Cutillas Carrillo
  *
  * This program is free software; you can redistribute it and/or

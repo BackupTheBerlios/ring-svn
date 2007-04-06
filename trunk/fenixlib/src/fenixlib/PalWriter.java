@@ -31,20 +31,31 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * An implementation of the <code>FileWriter</code> interface to write Pal Fenix
+ * files.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see FileWriter
  */
 public class PalWriter implements FileWriter<Palette>, FenixlibConstants {
     
     private File file;
     
-    /** Creates a new instance of PalWriter */
+    /**
+     * Constructs a new <code>PalWriter</code> associated to the specified file.
+     * @param f a <code>File</code> object which specifies the file to be used by 
+     * different methods of the class
+     */
     public PalWriter(File f) {
         file = f;
     }
     
     /**
-     *  @param palette
-     */
+     * Writes a Pal file from the information in an <code>Palette</code>
+     * object.
+     * @param palette the <code>Palette</code> whose information is being used to write
+     * the file
+     * @throws java.io.IOException if any error occurrs during the writing process
+     */ 
     public void write(Palette palette) throws IOException {
         
         // Create a new DataOutputStream to write file data

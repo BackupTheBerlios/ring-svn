@@ -37,7 +37,10 @@ import java.util.Arrays;
 
 
 /**
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * An implementation of the <code>FileWriter</code> interface to write Fbm Fenix
+ * files.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see FileWriter
  */
 public class FbmWriter implements FileWriter<AnimatedGraphic>, FenixlibConstants {
     
@@ -48,11 +51,24 @@ public class FbmWriter implements FileWriter<AnimatedGraphic>, FenixlibConstants
     private static final short VERSION_MINOR = 0x0000;      
     
 
+    /**
+     * Constructs a new <code>FbmWriter</code> associated to the specified file.
+     * @param f a <code>File</code> object which specifies the file to be used by 
+     * different methods
+     * of the class
+     */
     public FbmWriter(File f) {
         file = f;
     }
     
     
+    /**
+     * Writes an Fbm file from the information in an <code>AnimatedGraphic</code>
+     * object.
+     * @param ag the <code>AnimatedGraphic</code> whose information is being used to write
+     * the file
+     * @throws java.io.IOException if any error occurrs during the writing process
+     */
     public void write (AnimatedGraphic ag) throws IOException { 
         
        GZFileWriter gzfile = new GZFileWriter();

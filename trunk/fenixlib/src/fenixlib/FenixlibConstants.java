@@ -24,32 +24,53 @@
 
 package fenixlib;
 
-/** A collection of constants generally related to different file types
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+/**
+ * A collection of constants used by the library.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  */
 public interface FenixlibConstants {
     
-    /* FILE MAGICS (DESCRIPTORS) */
-    // PALETTES
-    // Pal
+    /* ------------------------- *
+     | FILE MAGICS (DESCRIPTORS) |
+     * ------------------------- */
+    
+    /* PALETTES */
+
+    /**
+     * An string (actually a sequence of bytes) that identifies a Fenix Pal file.
+     */
     static final String PAL_MAGIC = new String (new byte[]{
                     'p', 'a', 'l'
                     , 0x1A,0x0D, 0x0A, 0x00, 0x00 });  
-    // Fpl
+
+    /**
+     * An string (actually a sequence of bytes) that identifies a Fenix Fpl file.
+     */
     static final String FPL_MAGIC = new String (new byte[]{
                     'F', 'e', 'n', 'i', 'x', 'P', 'a', 'l', 'e', 't', 't', 'e'
                     ,0x1A,0x0D, 0x0A, 0x00 });
     
-    // GRAPHICS
-    // Map (8bpp)
+    /* GRAPHICS */
+    
+    /**
+     * An string (actually a sequence of bytes) that identifies a Fenix Map file of
+     * 8bpp.
+     */
     static final String MAP_MAGIC = new String (new byte[]{
                     'm', 'a', 'p'
                     , 0x1A,0x0D, 0x0A, 0x00, 0x00 });  
-    // Map (16bpp)
+   
+    /**
+     * An string (actually a sequence of bytes) that identifies a Fenix Map file of
+     * 16bpp.
+     */
     static final String M16_MAGIC = new String (new byte[]{
                     'm', '1', '6'
                     , 0x1A,0x0D, 0x0A, 0x00, 0x00 });      
-    // Fbm
+    
+    /**
+     * An string (actually a sequence of bytes) that identifies a Fenix Fbm file.
+     */
     static final String FBM_MAGIC = new String (new byte[]{
                     'F', 'e', 'n', 'i', 'x', 'B', 'i', 't', 'm', 'a', 'p', ' '
                     ,0x1A,0x0D, 0x0A, 0x00 });

@@ -1,4 +1,4 @@
-/* Ring Ide - The all in one IDE for Fenix.
+/* fenixlib - Library to support Fenix Files in Java
  * Copyright (C) 2007  Darío Cutillas Carrillo
  *
  * This program is free software; you can redistribute it and/or
@@ -25,11 +25,28 @@
 package fenixlib;
 
 /**
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * A class to be used as an read-only structure with information about a sequence.
+ * Some methods of the <code>AnimatedGraphic</code> class return objects of this
+ * class.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see AnimatedGraphic
  */
 public final class SequenceInfo {
+    /**
+     * A descriptive name for the sequence.
+     */
     public final String name;
+    /**
+     * The number of keyframes contained by this sequence.
+     */
     public final int nKeyFrames;
+    /**
+     * An integer value that indicates the next sequence in the animation. The value
+     * represents the index of the sequence in the sequence array of an 
+     * <code>AnimatedGraphic</code> object.
+     * 
+     * Can be -1 if the animation must stop after the sequence finishes.
+     */
     public final int nextSequence;
     
     SequenceInfo(String name, int nKeyFrames, int nextSequence) {

@@ -36,21 +36,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * An implementation of the <code>FileReader</code> interface to read Map Fenix
+ * files.
+ * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
+ * @see FileReader
  */
 public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants {
     
     private final File file;
     
     /**
-     *  @param
+     * Constructs a new <code>MapReader</code> associated to the specified file.
+     * @param f a <code>File</code> object which specifies the file to be used by read methods
      */
     public MapReader(File f) {
         file = f;
     }
     
     /**
-     *  @return
+     * Reads the file associated to this <code>MapReader</code> object as if it was
+     * a Map fenix file and returns an <code>AnimatedGraphic</code> object created
+     * from its information.
+     * @return an AnimatedGraphic created from the information of the file
+     * @see AnimatedGraphic
+     * @throws java.io.IOException if the file is not a valid Map file or it couldn't 
+     * be read for any reason
      */
     public AnimatedGraphic read() throws IOException {
         GZFileReader gzfile = new GZFileReader(file);
@@ -65,7 +75,7 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
             depth = DepthMode.DEPTH_8BPP;
         else if( M16_MAGIC.compareToIgnoreCase(descriptor)==0 ) // 16bpp Map
             depth = DepthMode.DEPTH_16BPP;
-        else															/* Incompatible format */
+        else	/* Incompatible format */
             throw new IOException("The file is not a valid map file");
         
         // Read width, height, id and name of the map
@@ -89,8 +99,10 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
         }
         
         /*  CONTROL POINTS */
-        /*  Flags: First 12 bits of the short integer tells us the number of stored control points.
-            Bit 13 tells if there is animation or not, but since map animation is not actually supported by fenix we consider this an error.
+        /*  Flags: First 12 bits of the short integer tells us the number of
+            stored control points. Bit 13 tells if there is animation or not, 
+            but since map animation is not actually supported by fenix we 
+            consider this an error.
          */
         ArrayList<ControlPoint> controlPoints = new ArrayList<ControlPoint>();
         {
@@ -114,7 +126,8 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
         }
         
         /* MAP PIXEL DATA
-         * First create the buffered image. Then create a <Type>Buffer to store pixel data and  set our BufferedImage data by
+         * First create the buffered image. Then create a <Type>Buffer to 
+         * store pixel data and  set our BufferedImage data by
          * creating a Raster object containing the ByteBuffer information
          */
         BufferedImage buffImage = null;
