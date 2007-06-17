@@ -230,11 +230,9 @@ public class FbmReader implements FileReader<AnimatedGraphic>, FenixlibConstants
         InternalSequence iseq;
         // for (InternalSequence iseq : internalSequences) {
         for (int i = 0; i < internalSequences.length; i++) {
-            // Sequence
-            //sequence = new Sequence(iseq.name);
             iseq = internalSequences[i];
             ag.addSequence(iseq.name);
-            // Frames
+            // KeyFrames
             for (int j = iseq.firstKeyFrame; j <= iseq.lastKeyFrame; j++) {
                 ag.addKeyFrame(
                         i,

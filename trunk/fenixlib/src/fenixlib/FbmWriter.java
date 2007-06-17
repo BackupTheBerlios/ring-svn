@@ -148,7 +148,7 @@ public class FbmWriter implements FileWriter<AnimatedGraphic>, FenixlibConstants
             gzfile.writeAsciiZ(internalSeq.name, 32);
             gzfile.writeInt(internalSeq.firstKeyFrame);     // First keyframe
             gzfile.writeInt(internalSeq.lastKeyFrame);      // Last keyframe
-            gzfile.writeInt(-1);                            // Next sequence
+            gzfile.writeInt(internalSeq.nextSequence);                            // Next sequence
         }
         
         // KeyFrames

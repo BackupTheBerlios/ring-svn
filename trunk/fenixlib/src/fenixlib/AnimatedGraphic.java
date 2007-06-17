@@ -257,6 +257,14 @@ public class AnimatedGraphic extends AbstractGraphic{
         return keyFramesInfo.toArray(new KeyFrameInfo[0]);
     }
     
+    public void setKeyFrameParams(int seqIndex, int kfIndex, int frameIndex,  
+            int flags, int angle, int pause) {
+            sequences.get(seqIndex).keyFrames.get(kfIndex).frame = 
+                    frames.get(frameIndex);
+            sequences.get(seqIndex).keyFrames.get(kfIndex).setFlags(flags);
+            sequences.get(seqIndex).keyFrames.get(kfIndex).setAngle(angle);
+            sequences.get(seqIndex).keyFrames.get(kfIndex).setPause(pause);
+    }
 
     
     /**
