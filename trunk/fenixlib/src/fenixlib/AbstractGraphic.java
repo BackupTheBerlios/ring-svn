@@ -24,7 +24,6 @@
 
 package fenixlib;
 
-import java.awt.Graphics;
 import java.util.TreeSet;
 import java.util.Comparator;
 

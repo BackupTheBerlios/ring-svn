@@ -25,7 +25,6 @@
 package fenixlib;
 
 import fenixlib.util.GZFileReader;
-import fenixlib.util.GZFileWriter;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferUShort;
@@ -130,9 +129,9 @@ public class FbmReader implements FileReader<AnimatedGraphic>, FenixlibConstants
                                 gzfile.readUnsignedByte() 
                                 );
             palette = new Palette(colors);
-            ag = new AnimatedGraphic (width, height, palette);
+            ag = AnimatedGraphic.create8 (width, height, palette);
         } else if (depth == DepthMode.DEPTH_16BPP)
-            ag = new AnimatedGraphic (width, height);   
+            ag = AnimatedGraphic.create16 (width, height);   
         
         ag.setName(name);
         ag.setId(id);

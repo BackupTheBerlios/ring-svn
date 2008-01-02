@@ -24,9 +24,7 @@
 
 package fenixlib;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBuffer;
 import java.awt.image.IndexColorModel;
 import java.util.ArrayList;
 
@@ -70,47 +68,59 @@ public class AnimatedGraphic extends AbstractGraphic{
     // data.
     private ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
     
-    /**
-     * Creates a new 16bpp <code>AnimatedGraphic</code> with the specified width and
-     * height
-     * @param width the desired width
-     * @param height the desired height
-     */
-    public AnimatedGraphic (int width, int height) {
-        
+    private AnimatedGraphic (int width, int height, DepthMode depth) {
         this.width = width;
         this.height = height;
-        this.depth = DepthMode.DEPTH_16BPP;
-
+        this.depth = depth;
     }
     
-    /*public AnimatedGraphic (int width, int height, DepthMode depthMode) {
-        
-        this.width = width;
-        this.height = height;
-        if (depthMode == DepthMode.DEPTH_8BPP)      
-            throw new IllegalArgumentException("Cannot use constructor with" +
-                    "DEPTH_8BPP mode");
-        
-        depth = depthMode;
-        
-    }*/
+//    /**
+//     * Creates a new 16bpp <code>AnimatedGraphic</code> with the specified width and
+//     * height
+//     * @param width the desired width
+//     * @param height the desired height
+//     */
+//    private AnimatedGraphic (int width, int height) {
+//        
+//        this.width = width;
+//        this.height = height;
+//        this.depth = DepthMode.DEPTH_16BPP;
+//
+//    }
     
-    /**
-     * Creates a new 8bpp (indexed) <code>AnimatedGraphic</code> with the specified 
-     * width and height and an underlaying palette.
-     * @param width the desired width
-     * @param height the desired height
-     * @param palette a <code>Palette</code> object to be used as the indexed palette
-     * for the graphic
-     */
-    public AnimatedGraphic (int width, int height, Palette palette) {
+//    /**
+//     * Creates a new 8bpp (indexed) <code>AnimatedGraphic</code> with the specified 
+//     * width and height and an underlaying palette.
+//     * @param width the desired width
+//     * @param height the desired height
+//     * @param palette a <code>Palette</code> object to be used as the indexed palette
+//     * for the graphic
+//     */
+//    private AnimatedGraphic (int width, int height, Palette palette) {
+//        this.width = width;
+//        this.height = height;
+//        this.depth = DepthMode.DEPTH_8BPP;
+//        this.palette = palette;
+//    }
+    
+    public static AnimatedGraphic create8(int width, int height, Palette palette) {
+        AnimatedGraphic ag;
+                
+        if(palette == null) {
+            throw new IllegalArgumentException("Cannot create an 8bpp graphic" +
+                    "without a palette");
+        }
         
-        this.width = width;
-        this.height = height;
-        this.depth = DepthMode.DEPTH_8BPP;
-        this.palette = palette;
+        ag = new AnimatedGraphic(width, height, DepthMode.DEPTH_8BPP);
+        ag.palette = palette;
+        return ag;
+    }
+    
+    public static AnimatedGraphic create16(int width, int height) {
+        AnimatedGraphic ag;
         
+        ag = new AnimatedGraphic(width, height, DepthMode.DEPTH_16BPP);
+        return ag;
     }
     
     /**
@@ -129,6 +139,14 @@ public class AnimatedGraphic extends AbstractGraphic{
         Sequence seq = new Sequence();
         sequences.add(seq);
     }      
+
+    /**
+     * Returns the number of sequences of the <code>AnimatedGraphic</code>
+     * @return the number of sequences of the <code>AnimatedGraphic</code>
+     */
+    public int getSequenceCount() {
+        return sequences.size();
+    }
     
     /**
      * Returns a <code>SequenceInfo</code> object which contains information
@@ -266,6 +284,13 @@ public class AnimatedGraphic extends AbstractGraphic{
             sequences.get(seqIndex).keyFrames.get(kfIndex).setPause(pause);
     }
 
+    /**
+     * Returns the number of frames of the <code>AnimatedGraphic</code>
+     * @return the number of frames of the <code>AnimatedGraphic</code>
+     */
+    public int getFrameCount() {
+        return frames.size();
+    }
     
     /**
      * Adds a new frame to the graphic. 
@@ -364,4 +389,5 @@ public class AnimatedGraphic extends AbstractGraphic{
     public BufferedImage getFrame(int frameIndex) {
         return frames.get(frameIndex);
     }      
+ 
 }

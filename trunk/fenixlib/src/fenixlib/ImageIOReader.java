@@ -93,7 +93,7 @@ public class ImageIOReader implements FileReader<AnimatedGraphic>, FenixlibConst
             frame = buffImage;
             
             // Create an 8bpp animated graphic
-            ag = new AnimatedGraphic(
+            ag = AnimatedGraphic.create8(
                 buffImage.getWidth(),
                 buffImage.getHeight(),
                 palette
@@ -105,7 +105,7 @@ public class ImageIOReader implements FileReader<AnimatedGraphic>, FenixlibConst
             frame = buffImage;
             
             // Create a 16bpp animated graphic
-            ag = new AnimatedGraphic(
+            ag = AnimatedGraphic.create16(
                 buffImage.getWidth(),
                 buffImage.getHeight()
                 );
@@ -120,7 +120,7 @@ public class ImageIOReader implements FileReader<AnimatedGraphic>, FenixlibConst
                 );
             
             // Create an 16bpp animated graphic
-            ag = new AnimatedGraphic(
+            ag = AnimatedGraphic.create16(
                 buffImage.getWidth(),
                 buffImage.getHeight()
                 );

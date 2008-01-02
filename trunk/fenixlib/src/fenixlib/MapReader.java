@@ -65,12 +65,20 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
     public AnimatedGraphic read() throws IOException {
         GZFileReader gzfile = new GZFileReader(file);
         
-        DepthMode depth;
-        int width, height, id;
         String name;
+        String descriptor;
+        int width, height, id;
+        
+        DepthMode depth;
+        Palette palette;
+        
+        BufferedImage buffImage = null;
+        DataBuffer dataBuffer = null; // Stores image internaly as bytes        
+        
+        AnimatedGraphic ag = null;
         
         // Read and check descriptor
-        String descriptor = new String(gzfile.readBytes(8));
+        descriptor = new String(gzfile.readBytes(8));
         if( MAP_MAGIC.compareToIgnoreCase(descriptor)==0 )  // 8bpp MAP
             depth = DepthMode.DEPTH_8BPP;
         else if( M16_MAGIC.compareToIgnoreCase(descriptor)==0 ) // 16bpp Map
@@ -85,14 +93,14 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
         name = gzfile.readAsciiZ(32);
         
         // Read palette if 8bpp
-        Palette palette = null;
-        if(depth==DepthMode.DEPTH_8BPP)	{
+        palette = null;
+        if(depth == DepthMode.DEPTH_8BPP)	{
             Color[] colors = new Color[256];
-            for(int i=0;i<256;i++)
+            for(int i = 0; i < 256; i++)
                 colors[i] = new Color(
-                        gzfile.readUnsignedByte()<<2,
-                        gzfile.readUnsignedByte()<<2,
-                        gzfile.readUnsignedByte()<<2
+                        gzfile.readUnsignedByte() << 2,
+                        gzfile.readUnsignedByte() << 2,
+                        gzfile.readUnsignedByte() << 2
                         );
             palette = new Palette(colors);
             gzfile.skip(576); // This 576 bytes are useless in Fenix
@@ -108,16 +116,16 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
         {
             short nFlags = gzfile.readShort();
             int nPoints = nFlags & 0xfff; // Number of Control Points 
-            if ((nFlags>>12)!=0) // Animation bit set to one
+            if ((nFlags >> 12) != 0) // Animation bit set to one
                 throw new IOException("Map animation is not supported");
             
             if  (nPoints>0) { // Read all control points
                 short cX, cY;
-                for (int i=0; i<nPoints; i++) {
+                for (int i = 0; i < nPoints; i++) {
                     cX = gzfile.readShort();
                     cY = gzfile.readShort();
                     // Only create the Control Point if it is not the invalid CP (-1,-1)
-                    if (cX!=-1 && cY!=-1) {
+                    if (cX != -1 && cY != -1) {
                         controlPoints.add (new ControlPoint(i, (int)cX, (int)cY));
                     }
                 }
@@ -130,10 +138,7 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
          * store pixel data and  set our BufferedImage data by
          * creating a Raster object containing the ByteBuffer information
          */
-        BufferedImage buffImage = null;
-        DataBuffer dataBuffer = null; // Stores image internaly as bytes
         switch (depth) {
-            
             case DEPTH_8BPP:
                 // Obtain pixel data and create the buffer    
                 {
@@ -141,7 +146,7 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
                     dataBuffer =  new DataBufferByte(data, data.length);
                 }   
                 
-                // Create an IndexColorModel which stores the 256 color palette
+                // Create an IndexColorModel to store the 256 color palette
                 IndexColorModel cm = new IndexColorModel(8, 256, 
                         palette.getRedComponents(),
                         palette.getGreenComponents(), 
@@ -175,12 +180,10 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
                 ));        
         
         // Create the AnimatedGraphic
-        AnimatedGraphic ag = null;
-        
         if (depth == DepthMode.DEPTH_8BPP)
-            ag = new AnimatedGraphic (width, height, palette);
+            ag = AnimatedGraphic.create8(width, height, palette);
         else if (depth == DepthMode.DEPTH_16BPP)
-            ag = new AnimatedGraphic (width, height);
+            ag = AnimatedGraphic.create16(width, height);
         
         // Properties
         ag.setName(name);
