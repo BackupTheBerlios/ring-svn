@@ -25,6 +25,9 @@
 package fenixlib;
 
 import fenixlib.util.GZFileReader;
+import static fenixlib.FenixlibConstants.MAP_MAGIC;
+import static fenixlib.FenixlibConstants.M16_MAGIC;
+
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
@@ -41,7 +44,7 @@ import java.util.ArrayList;
  * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  * @see FileReader
  */
-public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants {
+public class MapReader implements FileReader<AnimatedGraphic> {
     
     private final File file;
     
@@ -79,12 +82,13 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
         
         // Read and check descriptor
         descriptor = new String(gzfile.readBytes(8));
-        if( MAP_MAGIC.compareToIgnoreCase(descriptor)==0 )  // 8bpp MAP
+        if( MAP_MAGIC.compareToIgnoreCase(descriptor)==0 ) { // 8bpp MAP
             depth = DepthMode.DEPTH_8BPP;
-        else if( M16_MAGIC.compareToIgnoreCase(descriptor)==0 ) // 16bpp Map
+        } else if( M16_MAGIC.compareToIgnoreCase(descriptor)==0 ) { // 16bpp Map
             depth = DepthMode.DEPTH_16BPP;
-        else	/* Incompatible format */
+        } else	/* Incompatible format */ {
             throw new IOException("The file is not a valid map file");
+        }
         
         // Read width, height, id and name of the map
         width = gzfile.readUnsignedShort();
@@ -174,16 +178,17 @@ public class MapReader implements FileReader<AnimatedGraphic>, FenixlibConstants
         }
         
         // Set data to the BufferedImage
-        buffImage.setData ( Raster.createRaster(
+        buffImage.setData(Raster.createRaster(
                 buffImage.getSampleModel(), dataBuffer, 
                 new java.awt.Point(0,0)
                 ));        
         
         // Create the AnimatedGraphic
-        if (depth == DepthMode.DEPTH_8BPP)
+        if (depth == DepthMode.DEPTH_8BPP) {
             ag = AnimatedGraphic.create8(width, height, palette);
-        else if (depth == DepthMode.DEPTH_16BPP)
+        } else if (depth == DepthMode.DEPTH_16BPP) {
             ag = AnimatedGraphic.create16(width, height);
+        }
         
         // Properties
         ag.setName(name);

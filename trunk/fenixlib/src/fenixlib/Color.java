@@ -99,10 +99,11 @@ public class Color {
      * @throws IllegalArgumentException if r,g or b are outside of the range 0 to 255
      */
     public void setRGB(int r, int g, int b) throws IllegalArgumentException{
-        if(r>255||r<0||g>255||g<0||b>255||b<0)
+        if(r>255||r<0||g>255||g<0||b>255||b<0) {
             throw new IllegalArgumentException();
-        else
+        } else {
             this.r=r;this.g=g;this.b=b;
+        }
     }
     
     /**
@@ -121,10 +122,11 @@ public class Color {
      * @throws IllegalArgumentException if r is outside of the range 0 to 255
      */
     public void setRed(int r) throws IllegalArgumentException {
-        if(r<0||r>255)
+        if(r<0||r>255) {
             throw new IllegalArgumentException();
-        else
+        } else {
             this.r=r;
+        }
     }
     
     /**
@@ -133,10 +135,11 @@ public class Color {
      * @throws IllegalArgumentException if g is outside of the range 0 to 255
      */
     public void setGreen(int g) throws IllegalArgumentException {
-        if(g<0||g>255)
+        if(g<0||g>255) {
             throw new IllegalArgumentException();
-        else
+        } else {
             this.g=g;
+        }
     }
     
     /**
@@ -145,10 +148,11 @@ public class Color {
      * @throws IllegalArgumentException if b is outside of the range 0 to 255
      */
     public void setBlue(int b) throws IllegalArgumentException {
-        if(b<0||b>255)
+        if(b<0||b>255) {
             throw new IllegalArgumentException();
-        else
+        } else {
             this.b=b;
+        }
     }
     
     /**

@@ -33,7 +33,7 @@ import javax.imageio.ImageIO;
 /**
  *  @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  */
-public class ImageIOReader implements FileReader<AnimatedGraphic>, FenixlibConstants {
+public class ImageIOReader implements FileReader<AnimatedGraphic> {
     
     private File file;
     

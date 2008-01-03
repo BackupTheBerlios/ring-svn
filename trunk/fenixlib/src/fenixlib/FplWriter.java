@@ -25,6 +25,8 @@
 package fenixlib;
 
 import fenixlib.util.GZFileWriter;
+import static fenixlib.FenixlibConstants.FPL_MAGIC;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -34,7 +36,7 @@ import java.io.IOException;
  * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  * @see FileWriter
  */
-public class FplWriter implements FileWriter<Palette>, FenixlibConstants {
+public class FplWriter implements FileWriter<Palette> {
     
     private File file;
     

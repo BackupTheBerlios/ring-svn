@@ -25,6 +25,7 @@
 package fenixlib;
 
 import fenixlib.util.GZFileWriter;
+import static fenixlib.FenixlibConstants.FBM_MAGIC;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
@@ -34,14 +35,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.io.IOException;
 
-
 /**
  * An implementation of the <code>FileWriter</code> interface to write Fbm Fenix
  * files.
  * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  * @see FileWriter
  */
-public class FbmWriter implements FileWriter<AnimatedGraphic>, FenixlibConstants {
+public class FbmWriter implements FileWriter<AnimatedGraphic> {
     
     private File file;
     
@@ -147,7 +147,7 @@ public class FbmWriter implements FileWriter<AnimatedGraphic>, FenixlibConstants
             gzfile.writeAsciiZ(internalSeq.name, 32);
             gzfile.writeInt(internalSeq.firstKeyFrame);     // First keyframe
             gzfile.writeInt(internalSeq.lastKeyFrame);      // Last keyframe
-            gzfile.writeInt(internalSeq.nextSequence);                            // Next sequence
+            gzfile.writeInt(internalSeq.nextSequence);      // Next sequence
         }
         
         // KeyFrames

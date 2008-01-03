@@ -24,6 +24,8 @@
 
 package fenixlib;
 
+import static fenixlib.FenixlibConstants.PAL_MAGIC;
+
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -36,7 +38,7 @@ import java.io.IOException;
  * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  * @see FileWriter
  */
-public class PalWriter implements FileWriter<Palette>, FenixlibConstants {
+public class PalWriter implements FileWriter<Palette> {
     
     private File file;
     

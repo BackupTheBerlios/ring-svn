@@ -101,6 +101,7 @@ public class ControlPoint { //implements Comparable {
      * Returns a string representation of this control point.
      * @return a string representation of this control point.
      */
+    @Override
     public String toString() { return index + ": (" + x + ", " + y + ")"; }
  /*   
     public int compareTo(Object o) {

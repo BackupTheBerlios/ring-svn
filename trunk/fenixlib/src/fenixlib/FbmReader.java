@@ -25,6 +25,8 @@
 package fenixlib;
 
 import fenixlib.util.GZFileReader;
+import static fenixlib.FenixlibConstants.FBM_MAGIC;
+
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferUShort;
@@ -40,7 +42,7 @@ import java.util.ArrayList;
  * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  * @see FileReader
  */
-public class FbmReader implements FileReader<AnimatedGraphic>, FenixlibConstants {
+public class FbmReader implements FileReader<AnimatedGraphic> {
     
     private File file;
     

@@ -27,6 +27,7 @@ package fenixlib;
 import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -59,14 +60,14 @@ import java.util.ArrayList;
 public class AnimatedGraphic extends AbstractGraphic{
     
     // An array list containing sequences
-    private ArrayList<Sequence> sequences = new ArrayList<Sequence>();
+    private List<Sequence> sequences = new ArrayList<Sequence>();
     
     // An array list containing all frame buffered images 
     // NOTE: Each keyframe has a buffered image associated but since different
     // KeyFrames can point to the same buffered image, we store here the references
     // to all buffered images of the graphic. This way, we avoid having duplicated
     // data.
-    private ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
+    private List<BufferedImage> frames = new ArrayList<BufferedImage>();
     
     private AnimatedGraphic (int width, int height, DepthMode depth) {
         this.width = width;
@@ -106,7 +107,7 @@ public class AnimatedGraphic extends AbstractGraphic{
     public static AnimatedGraphic create8(int width, int height, Palette palette) {
         AnimatedGraphic ag;
                 
-        if(palette == null) {
+        if (palette == null) {
             throw new IllegalArgumentException("Cannot create an 8bpp graphic" +
                     "without a palette");
         }
@@ -180,7 +181,7 @@ public class AnimatedGraphic extends AbstractGraphic{
         ArrayList<SequenceInfo> seqsInfo = new ArrayList<SequenceInfo>();
         
         int nextseqIndex;
-        for(Sequence sequence : sequences) {
+        for (Sequence sequence : sequences) {
             nextseqIndex = sequences.indexOf(sequence.getNextSequence());
             seqsInfo.add(new SequenceInfo(
                     sequence.getName(),
@@ -212,10 +213,11 @@ public class AnimatedGraphic extends AbstractGraphic{
         Sequence seq = sequences.get(seqIndex);
         Sequence next;
         
-        if (nextSequence != -1)
+        if (nextSequence != -1) {
             next = sequences.get(nextSequence);
-        else
+        } else {
             next = null;
+        }
         
         seq.setNextSequence(next);        
     }
@@ -322,8 +324,9 @@ public class AnimatedGraphic extends AbstractGraphic{
         // buffImage must have the same dimensions than the AnimatedGraphic
         // and its backing buffer can only be TYPE_BYTE or TYPE_USHORT.
         
-        if (img.getWidth() != width || img.getHeight() != height)
+        if (img.getWidth() != width || img.getHeight() != height) {
             throw new IllegalArgumentException("Frames dimensions must be the same");
+        }
         
         // Get and check data type
         int dataType = img.getType();
@@ -338,24 +341,25 @@ public class AnimatedGraphic extends AbstractGraphic{
              */
             
             case BufferedImage.TYPE_BYTE_INDEXED:
-                if (depth != depth.DEPTH_8BPP) 
+                if (depth != depth.DEPTH_8BPP)  {
                     throw new IllegalArgumentException (
                             "Depth must be the same");
+                }
                 
                 IndexColorModel cm = (IndexColorModel)img.getColorModel();
                 
                 // Check the number of colors in the ColorModel
-                if (cm.getMapSize() != 256)
+                if (cm.getMapSize() != 256) {
                     throw new IllegalArgumentException (
                             "Only 256 color palettes are allowed.");
-                
+                }
                 break;
             
             case BufferedImage.TYPE_USHORT_565_RGB:
-                if (depth != depth.DEPTH_16BPP) 
+                if (depth != depth.DEPTH_16BPP) {
                     throw new IllegalArgumentException (
                             "Depth must be the same");   
-                
+                }
                 break;
                 
             default:

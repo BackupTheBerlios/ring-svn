@@ -166,10 +166,11 @@ public abstract class AbstractGraphic {
      */
     public ControlPoint getControlPoint(int index) {
         ControlPoint cp = new ControlPoint(index);
-        if (controlPoints.contains(cp)) 
+        if (controlPoints.contains(cp)) {
             return controlPoints.ceiling(cp);
-        else
+        } else {
             return null;
+        }
     }
     
     /**
@@ -195,15 +196,17 @@ public abstract class AbstractGraphic {
      * @throws IllegalArgumentException if cp has a null value
      */
     public void setControlPoint(ControlPoint cp) throws IllegalArgumentException {
-        if (cp == null) 
+        if (cp == null) {
             throw new IllegalArgumentException("Cannot set a null ControlPoint");
+        }
         
         if (controlPoints.contains(cp)) {
             ControlPoint oldCp = controlPoints.ceiling(cp);
             oldCp.setX (cp.getX());
             oldCp.setY (cp.getY());
-        } else
+        } else {
             controlPoints.add(cp);
+        }
     }
     
     /**

@@ -25,6 +25,8 @@
 package fenixlib;
 
 import fenixlib.util.GZFileReader;
+import static fenixlib.FenixlibConstants.FPL_MAGIC;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -34,7 +36,7 @@ import java.io.IOException;
  * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  * @see FileReader
  */
-public class FplReader implements FileReader<Palette>, FenixlibConstants {
+public class FplReader implements FileReader<Palette> {
     private final File file;
     
     /* Version code constants */

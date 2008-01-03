@@ -25,9 +25,11 @@
 package fenixlib;
 
 import fenixlib.util.GZFileReader;
+import static fenixlib.FenixlibConstants.PAL_MAGIC;
 
 import java.io.File;
 import java.io.IOException;
+
 
 /**
  * An implementation of the <code>FileReader</code> interface to read Pal Fenix
@@ -35,7 +37,7 @@ import java.io.IOException;
  * @author Darío Cutillas Carrillo (lord_danko at sourceforge.net)
  * @see FileReader
  */
-public class PalReader implements FileReader<Palette>, FenixlibConstants {    
+public class PalReader implements FileReader<Palette> {    
     private final File file;
 
     /**
